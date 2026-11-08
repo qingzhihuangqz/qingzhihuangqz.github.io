@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Qingzhi Huang</title>
+  <meta name="description" content="Personal homepage of Qingzhi Huang" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f7f4ef;
+      --ink: #1c2421;
+      --muted: #4f5c57;
+      --accent: #1f6f5b;
+      --line: #d9d2c5;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 18%, rgba(31, 111, 91, 0.08), transparent 42%),
+        radial-gradient(circle at 88% 78%, rgba(140, 110, 70, 0.08), transparent 40%),
+        linear-gradient(160deg, #faf8f4 0%, #f1ece3 100%);
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      line-height: 1.6;
+    }
+
+    main {
+      width: min(42rem, 100%);
+      padding: 2.5rem 2rem;
+      border-top: 3px solid var(--accent);
+    }
+
+    h1 {
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 36ch;
+    }
+
+    .meta {
+      margin-top: 1.75rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--line);
+      display: grid;
+      gap: 0.4rem;
+    }
+
+    .label {
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    a {
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--line);
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    a:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Qingzhi Huang</h1>
+    <p>Personal homepage.</p>
+    <div class="meta">
+      <div class="label">Email</div>
+      <a href="mailto:qingzhihuangqz@163.com">qingzhihuangqz@163.com</a>
+    </div>
+  </main>
+</body>
+</html>
