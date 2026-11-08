@@ -7,151 +7,285 @@
   <meta name="description" content="Personal homepage of Qingzhi Huang — robotics, hand-object interaction, and robot learning." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #eef3f6;
-      --panel: rgba(255, 255, 255, 0.72);
-      --ink: #142029;
-      --muted: #4b5c68;
-      --accent: #0b6e6e;
-      --accent-soft: rgba(11, 110, 110, 0.12);
-      --line: rgba(20, 32, 41, 0.12);
+      --ink: #101820;
+      --muted: #5a6772;
+      --soft: #8a969f;
+      --line: rgba(16, 24, 32, 0.12);
+      --accent: #1a7a72;
+      --accent-2: #2f5d9f;
+      --paper: #f3f6f8;
+      --glow: rgba(26, 122, 114, 0.18);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html { scroll-behavior: smooth; }
+
     body {
       min-height: 100vh;
       color: var(--ink);
-      font-family: Manrope, system-ui, sans-serif;
+      font-family: Sora, sans-serif;
       line-height: 1.65;
+      background: var(--paper);
+      overflow-x: hidden;
+    }
+
+    .sky {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
       background:
-        radial-gradient(ellipse at 0% 0%, rgba(11, 110, 110, 0.14), transparent 45%),
-        radial-gradient(ellipse at 100% 100%, rgba(36, 72, 110, 0.12), transparent 42%),
-        linear-gradient(165deg, #f4f7fa 0%, #e7eef3 55%, #dde7ee 100%);
+        radial-gradient(900px 520px at 78% 8%, rgba(47, 93, 159, 0.16), transparent 60%),
+        radial-gradient(700px 480px at 8% 18%, var(--glow), transparent 55%),
+        linear-gradient(160deg, #f7fafb 0%, #e9eef3 48%, #e2e9ef 100%);
     }
 
-    .wrap {
-      width: min(720px, calc(100% - 2.5rem));
+    .grid {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(rgba(16, 24, 32, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 24, 32, 0.035) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse at 50% 20%, black 20%, transparent 75%);
+      animation: drift 28s linear infinite;
+      pointer-events: none;
+    }
+
+    .orb {
+      position: fixed;
+      width: 42vw;
+      max-width: 520px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      right: -8vw;
+      top: 6vh;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.55), transparent 45%),
+        radial-gradient(circle at 60% 60%, rgba(26, 122, 114, 0.22), rgba(47, 93, 159, 0.08) 70%, transparent 75%);
+      filter: blur(2px);
+      animation: float 9s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .page {
+      width: min(1080px, calc(100% - 2.5rem));
       margin: 0 auto;
-      padding: 4.5rem 0 3.5rem;
+      padding-bottom: 4rem;
     }
 
-    header {
-      margin-bottom: 2.25rem;
-      animation: rise 0.7s ease both;
+    /* First viewport: one composition */
+    .hero {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+      gap: 2.5rem;
+      padding: 3.5rem 0 2rem;
     }
 
-    .eyebrow {
-      display: inline-block;
-      margin-bottom: 0.85rem;
-      padding: 0.28rem 0.7rem;
-      border-radius: 999px;
-      background: var(--accent-soft);
+    .hero-copy {
+      animation: rise 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .name {
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: clamp(3.4rem, 8vw, 5.6rem);
+      font-weight: 400;
+      letter-spacing: -0.035em;
+      line-height: 0.95;
+      margin-bottom: 1.15rem;
+    }
+
+    .name span {
+      display: block;
       color: var(--accent);
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-    }
-
-    h1 {
-      font-family: Fraunces, Georgia, serif;
-      font-size: clamp(2.4rem, 6vw, 3.4rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      line-height: 1.1;
-      margin-bottom: 0.85rem;
+      font-style: italic;
     }
 
     .lead {
+      max-width: 30rem;
       color: var(--muted);
-      font-size: 1.08rem;
-      max-width: 38rem;
+      font-size: clamp(1rem, 1.5vw, 1.12rem);
+      margin-bottom: 1.75rem;
+    }
+
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem 1.1rem;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.85rem 1.2rem;
+      background: var(--ink);
+      color: #f4f7f9;
+      border: none;
+      border-bottom: none;
+      font: inherit;
+      font-size: 0.92rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.25s ease, background 0.25s ease;
+    }
+
+    .btn:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+      border-bottom: none;
+      color: #fff;
+    }
+
+    .link-quiet {
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .link-quiet:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .hero-visual {
+      position: relative;
+      height: min(58vh, 460px);
+      animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+    }
+
+    .hero-visual svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .stroke-draw {
+      stroke-dasharray: 1200;
+      stroke-dashoffset: 1200;
+      animation: draw 2.4s ease forwards 0.35s;
+    }
+
+    .dot-pulse {
+      transform-origin: center;
+      animation: pulse 2.8s ease-in-out infinite;
+    }
+
+    .content {
+      display: grid;
+      gap: 0;
+      max-width: 760px;
     }
 
     section {
-      margin-top: 1.75rem;
-      padding: 1.35rem 1.4rem;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      backdrop-filter: blur(10px);
-      animation: rise 0.7s ease both;
+      padding: 2.4rem 0;
+      border-top: 1px solid var(--line);
+      animation: rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
 
-    section:nth-of-type(1) { animation-delay: 0.08s; }
-    section:nth-of-type(2) { animation-delay: 0.16s; }
-    section:nth-of-type(3) { animation-delay: 0.24s; }
-    section:nth-of-type(4) { animation-delay: 0.32s; }
+    section:nth-of-type(1) { animation-delay: 0.05s; }
+    section:nth-of-type(2) { animation-delay: 0.1s; }
+    section:nth-of-type(3) { animation-delay: 0.15s; }
+    section:nth-of-type(4) { animation-delay: 0.2s; }
+
+    .section-kicker {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.55rem;
+    }
 
     h2 {
-      font-family: Fraunces, Georgia, serif;
-      font-size: 1.25rem;
-      font-weight: 600;
-      margin-bottom: 0.7rem;
-      letter-spacing: -0.01em;
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: clamp(1.8rem, 3vw, 2.25rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
     }
 
-    p + p { margin-top: 0.75rem; }
+    .prose {
+      color: var(--muted);
+      max-width: 40rem;
+    }
 
-    ul {
+    .prose p + p { margin-top: 0.85rem; }
+
+    .interest-list {
       list-style: none;
       display: grid;
-      gap: 0.55rem;
+      gap: 0.85rem;
+      margin-top: 0.35rem;
     }
 
-    li {
-      position: relative;
-      padding-left: 1rem;
+    .interest-list li {
+      display: grid;
+      grid-template-columns: 2.2rem 1fr;
+      gap: 0.7rem;
+      align-items: start;
       color: var(--muted);
     }
 
-    li::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0.7em;
-      width: 0.4rem;
-      height: 0.4rem;
-      border-radius: 50%;
-      background: var(--accent);
-      transform: translateY(-50%);
-    }
-
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.95rem;
-    }
-
-    .tag {
-      padding: 0.28rem 0.65rem;
-      border: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.65);
-      color: var(--ink);
-      font-size: 0.84rem;
-      font-weight: 500;
-    }
-
-    .meta {
-      display: grid;
-      gap: 0.85rem;
-    }
-
-    .label {
-      font-size: 0.74rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+    .idx {
+      font-family: "Instrument Serif", Georgia, serif;
+      font-style: italic;
       color: var(--accent);
+      font-size: 1.15rem;
+      line-height: 1.4;
+    }
+
+    .topics {
+      display: grid;
+      gap: 1rem;
+      margin-top: 0.4rem;
+    }
+
+    .topic {
+      padding-left: 1rem;
+      border-left: 2px solid rgba(26, 122, 114, 0.45);
+      color: var(--muted);
+    }
+
+    .topic strong {
+      display: block;
+      color: var(--ink);
       font-weight: 600;
-      margin-bottom: 0.15rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .contact-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.4rem 2rem;
+      margin-top: 0.4rem;
+    }
+
+    .contact-row .label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--soft);
+      font-weight: 600;
+      margin-bottom: 0.25rem;
     }
 
     a {
       color: var(--ink);
       text-decoration: none;
-      border-bottom: 1px solid rgba(11, 110, 110, 0.35);
+      border-bottom: 1px solid rgba(26, 122, 114, 0.35);
       transition: color 0.2s ease, border-color 0.2s ease;
     }
 
@@ -161,102 +295,189 @@
     }
 
     footer {
-      margin-top: 1.75rem;
-      color: var(--muted);
+      margin-top: 1rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+      color: var(--soft);
       font-size: 0.88rem;
-      animation: rise 0.7s ease both;
-      animation-delay: 0.4s;
     }
 
     @keyframes rise {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(18px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @media (max-width: 640px) {
-      .wrap { padding-top: 3rem; }
-      section { padding: 1.15rem 1.05rem; }
+    @keyframes draw {
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.55; r: 5; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(18px); }
+    }
+
+    @keyframes drift {
+      from { transform: translateY(0); }
+      to { transform: translateY(48px); }
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        padding-top: 3.2rem;
+        gap: 1.5rem;
+      }
+
+      .hero-visual {
+        order: -1;
+        height: 240px;
+        margin-inline: -0.4rem;
+      }
+
+      .name { font-size: clamp(3rem, 12vw, 4.2rem); }
+
+      .contact-row { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="eyebrow">Personal Homepage</div>
-      <h1>Qingzhi Huang</h1>
-      <p class="lead">
-        I am interested in robot learning and 3D perception for manipulation,
-        especially how egocentric human videos can be turned into usable robot skills.
-      </p>
+  <div class="sky" aria-hidden="true"></div>
+  <div class="grid" aria-hidden="true"></div>
+  <div class="orb" aria-hidden="true"></div>
+
+  <div class="page">
+    <header class="hero">
+      <div class="hero-copy">
+        <h1 class="name">Qingzhi <span>Huang</span></h1>
+        <p class="lead">
+          Robot learning and 3D perception for manipulation —
+          turning egocentric human video into usable robot skills.
+        </p>
+        <div class="cta">
+          <a class="btn" href="mailto:qingzhihuangqz@163.com">Email me</a>
+          <a class="link-quiet" href="#research">View research focus</a>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <svg viewBox="0 0 480 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="pathGrad" x1="40" y1="360" x2="440" y2="40" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#1a7a72" />
+              <stop offset="1" stop-color="#2f5d9f" />
+            </linearGradient>
+            <linearGradient id="panelGrad" x1="70" y1="50" x2="410" y2="370" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#ffffff" stop-opacity="0.72" />
+              <stop offset="1" stop-color="#ffffff" stop-opacity="0.18" />
+            </linearGradient>
+          </defs>
+
+          <rect x="48" y="36" width="384" height="348" rx="4" fill="url(#panelGrad)" stroke="rgba(16,24,32,0.1)" />
+          <path d="M90 300 H390 M90 240 H390 M90 180 H390 M90 120 H390" stroke="rgba(16,24,32,0.06)" stroke-width="1" />
+          <path d="M150 70 V350 M230 70 V350 M310 70 V350" stroke="rgba(16,24,32,0.05)" stroke-width="1" />
+
+          <path class="stroke-draw" d="M78 318 C120 300, 128 250, 156 228 C190 200, 214 236, 246 214 C278 192, 286 148, 322 136 C356 124, 382 156, 408 120"
+            stroke="url(#pathGrad)" stroke-width="3.2" stroke-linecap="round" />
+
+          <path d="M156 228 L188 196 M246 214 L268 172 M322 136 L348 98" stroke="rgba(26,122,114,0.35)" stroke-width="1.5" stroke-linecap="round" />
+
+          <circle class="dot-pulse" cx="156" cy="228" r="5" fill="#1a7a72" />
+          <circle class="dot-pulse" cx="246" cy="214" r="5" fill="#1a7a72" style="animation-delay:0.4s" />
+          <circle class="dot-pulse" cx="322" cy="136" r="5" fill="#2f5d9f" style="animation-delay:0.8s" />
+          <circle cx="408" cy="120" r="7" fill="#2f5d9f" opacity="0.9" />
+
+          <circle cx="120" cy="96" r="18" stroke="rgba(47,93,159,0.35)" stroke-width="1.5" />
+          <circle cx="120" cy="96" r="5" fill="rgba(47,93,159,0.55)" />
+          <path d="M138 108 C168 128, 188 148, 198 176" stroke="rgba(47,93,159,0.28)" stroke-width="1.5" stroke-dasharray="4 5" />
+        </svg>
+      </div>
     </header>
 
-    <section>
-      <h2>About</h2>
-      <p>
-        My current focus is egocentric hand–object interaction (HOI) for robot
-        manipulation: recovering hand and object motion from first-person video,
-        bridging the embodiment and physics gaps between humans and robots, and
-        connecting real capture pipelines with simulation.
-      </p>
-      <p>
-        I care about practical full-stack systems — from data capture and 3D
-        estimation to real-to-sim transfer, trajectory retargeting, and
-        sim-to-real deployment.
-      </p>
-    </section>
-
-    <section>
-      <h2>Research Interests</h2>
-      <ul>
-        <li>Robot learning from human demonstration and egocentric video</li>
-        <li>Hand–object interaction understanding and 3D reconstruction</li>
-        <li>Egocentric 3D hand pose and object 6-DoF estimation</li>
-        <li>Real-to-sim / sim-to-real for dexterous and desktop manipulation</li>
-        <li>Motion retargeting from human hands to robot embodiments</li>
-        <li>Digital twin construction for tabletop interaction scenes</li>
-      </ul>
-      <div class="tags">
-        <span class="tag">Robotics</span>
-        <span class="tag">Computer Vision</span>
-        <span class="tag">HOI</span>
-        <span class="tag">Imitation Learning</span>
-        <span class="tag">Sim-to-Real</span>
-        <span class="tag">3D Perception</span>
-      </div>
-    </section>
-
-    <section>
-      <h2>Selected Topics</h2>
-      <ul>
-        <li>Learning robot manipulation skills from in-the-wild or egocentric human videos</li>
-        <li>Formalizing visual and physical gaps between human demos and robot execution</li>
-        <li>Asset–trajectory decoupling for scalable desktop digital twins</li>
-        <li>Physics-aware trajectory refinement with reinforcement learning</li>
-        <li>Evaluating egocentric HOI datasets and reconstruction quality for robotics</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Contact</h2>
-      <div class="meta">
-        <div>
-          <div class="label">Email</div>
-          <a href="mailto:qingzhihuangqz@163.com">qingzhihuangqz@163.com</a>
+    <div class="content">
+      <section id="about">
+        <div class="section-kicker">About</div>
+        <h2>Building bridges from human demos to robot action</h2>
+        <div class="prose">
+          <p>
+            My current focus is egocentric hand–object interaction for robot
+            manipulation: recovering hand and object motion from first-person video,
+            bridging embodiment and physics gaps, and connecting real capture
+            pipelines with simulation.
+          </p>
+          <p>
+            I care about practical full-stack systems — from data capture and 3D
+            estimation to real-to-sim transfer, trajectory retargeting, and
+            sim-to-real deployment.
+          </p>
         </div>
-        <div>
-          <div class="label">GitHub</div>
-          <a href="https://github.com/qingzhihuangqz" target="_blank" rel="noopener noreferrer">github.com/qingzhihuangqz</a>
-        </div>
-        <div>
-          <div class="label">Homepage</div>
-          <a href="https://qingzhihuangqz.github.io/">qingzhihuangqz.github.io</a>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <footer>
-      © Qingzhi Huang
-    </footer>
+      <section id="research">
+        <div class="section-kicker">Research Interests</div>
+        <h2>Where I spend my attention</h2>
+        <ul class="interest-list">
+          <li><span class="idx">01</span><span>Robot learning from human demonstration and egocentric video</span></li>
+          <li><span class="idx">02</span><span>Hand–object interaction understanding and 3D reconstruction</span></li>
+          <li><span class="idx">03</span><span>Egocentric 3D hand pose and object 6-DoF estimation</span></li>
+          <li><span class="idx">04</span><span>Real-to-sim / sim-to-real for dexterous and desktop manipulation</span></li>
+          <li><span class="idx">05</span><span>Motion retargeting from human hands to robot embodiments</span></li>
+          <li><span class="idx">06</span><span>Digital twin construction for tabletop interaction scenes</span></li>
+        </ul>
+      </section>
+
+      <section id="topics">
+        <div class="section-kicker">Selected Topics</div>
+        <h2>Problems I keep returning to</h2>
+        <div class="topics">
+          <div class="topic">
+            <strong>Learning from egocentric video</strong>
+            Turning in-the-wild human demonstrations into transferable robot skills.
+          </div>
+          <div class="topic">
+            <strong>Visual &amp; physical gaps</strong>
+            Formalizing embodiment mismatch and physics error between human demos and robot execution.
+          </div>
+          <div class="topic">
+            <strong>Scalable digital twins</strong>
+            Decoupling scene assets from motion trajectories for desktop interaction.
+          </div>
+          <div class="topic">
+            <strong>Physics-aware refinement</strong>
+            Using reinforcement learning to repair trajectories into executable robot motion.
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="section-kicker">Contact</div>
+        <h2>Get in touch</h2>
+        <div class="contact-row">
+          <div>
+            <div class="label">Email</div>
+            <a href="mailto:qingzhihuangqz@163.com">qingzhihuangqz@163.com</a>
+          </div>
+          <div>
+            <div class="label">GitHub</div>
+            <a href="https://github.com/qingzhihuangqz" target="_blank" rel="noopener noreferrer">github.com/qingzhihuangqz</a>
+          </div>
+        </div>
+      </section>
+
+      <footer>© Qingzhi Huang</footer>
+    </div>
   </div>
 </body>
 </html>
